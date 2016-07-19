@@ -28,6 +28,7 @@ html,body {
 <script async src="mainJs/artoolkit.three.js"></script>
 
 <script>
+    var stream;
 window.ARThreeOnLoad = function() {
 	ARController.getUserMediaThreeScene({maxARVideoSize: 320, cameraParam: 'Data/camera_para-iPhone 5 rear 640x480 1.0m.dat', facingMode: { exact: "environment" },
 	onSuccess: function(arScene, arController, arCamera) {
@@ -47,6 +48,22 @@ window.ARThreeOnLoad = function() {
 			}
 		}
 		document.body.insertBefore(renderer.domElement, document.body.firstChild);
+        
+        
+        var video = document.createElement('video');
+        var canvas = document.querySelector("canvas");
+        stream = canvas.captureStream(25);
+        video.src = stream;
+        video.autoPlay = true;
+        document.body.appendChild(video);
+        console.log(stream);
+//         canvas.toBlob(function(blob) {
+//             var url = window.URL.createObjectURL(blob);
+//             video.src = url;
+//             video.autoPlay = true;
+//             document.body.appendChild(video);
+//         });
+        
 		var rotationV = 0;
 		var rotationTarget = 0;
 		renderer.domElement.addEventListener('click', function(ev) {
@@ -62,12 +79,12 @@ window.ARThreeOnLoad = function() {
 		sphere.position.z = 0.5;
         
         var img = new THREE.MeshBasicMaterial({ //CHANGED to MeshBasicMaterial
-            map:THREE.ImageUtils.loadTexture('image/ss_small_recropped.png')
+            map:THREE.ImageUtils.loadTexture('image/ss_burned.png')
         });
         img.map.needsUpdate = true; //ADDED
 
         // plane
-        var imageObj = new THREE.Mesh(new THREE.PlaneGeometry(5, 5),img);
+        var imageObj = new THREE.Mesh(new THREE.PlaneGeometry(1, 1), img);
         imageObj.overdraw = true;
         imageObj.position.z = 0.5;
         
