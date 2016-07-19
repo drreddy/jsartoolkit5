@@ -1,6 +1,6 @@
 // you have to replace this portnumber with the requested
 // port as described before
-var webSocketsServerPort = 63949,
+var webSocketsServerPort = 8080,
 // this tells node what we need for this application
 webSocketServer = require('websocket').server,
 http = require('http'),
